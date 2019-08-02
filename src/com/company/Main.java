@@ -6,13 +6,13 @@ public class Main {
 
     public static void main(String[] args) {
         int arr[] = {0, -3, 4,12, 6, 5, 77, 1};
-        quickSort(arr, 1, arr.length-1);
         System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
     }
 
 
 
-    public static void quickSort(int[] arr, int low, int high){
+    public static int[] quickSort(int[] arr, int low, int high){
         int pivotIndex;
         if(low < high)
         {
@@ -20,6 +20,8 @@ public class Main {
             quickSort(arr, low, pivotIndex-1);
             quickSort(arr,pivotIndex+1, high);
         }
+
+        return arr;
     }
     public static int partition(int[] arr, int low, int high){
         int temp;
