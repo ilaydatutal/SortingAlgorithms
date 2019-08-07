@@ -7,7 +7,10 @@ public class Main {
     public static void main(String[] args) {
         int arr[] = {0, -3, 4,12, 6, 5, 77, 1};
         System.out.println(Arrays.toString(arr));
-        System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
+       // System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
+        mergeSort(arr, 0, arr.length - 1);
+       System.out.println(Arrays.toString(arr));
+
     }
 
 
@@ -23,8 +26,8 @@ public class Main {
 
         return arr;
     }
-    public static int partition(int[] arr, int low, int high){
-        int temp;
+    /*public static int partition(int[] arr, int low, int high){
+         int temp;
         int pivot = arr[high];
         int i = low-1;
 
@@ -41,6 +44,33 @@ public class Main {
         arr[high]=temp;
         return i+1;
 
+
+    }
+    */
+
+
+
+    public static int partition(int[] arr, int low, int high){
+        int temp;
+        int pivot = arr[(low + high) / 2];
+        int i=low, j=high;
+
+        while(i <= j){
+            while(arr[i] < pivot){
+                i++;
+            }
+            while(arr[j] > pivot){
+                j--;
+            }
+            if(i <= j){
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        return i;
 
     }
 
@@ -79,6 +109,58 @@ public class Main {
     }
 
 
+    public static void merge(int[] arr, int l, int m, int r){
+        int size1 = m - l + 1;
+        int size2 = r - m;
+        int L[] = new int[size1];
+        int R[] = new int[size2];
+
+        for (int i=0; i<size1; i++)
+            L[i] = arr[l + i];
+        for (int j=0; j<size2; j++)
+            R[j] = arr[m + 1+ j];
+
+        int i = 0, j = 0;
+
+        int k = l;
+        while (i < size1 && j < size2){
+            if (L[i] <= R[j]){
+                arr[k] = L[i];
+                i++;
+            }
+            else{
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < size1){
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < size2){
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    public static void mergeSort(int arr[], int l, int r)
+    {
+        if (l < r)
+        {
+            // Find the middle point
+            int m = (l+r)/2;
+
+            // Sort first and second halves
+            mergeSort(arr, l, m);
+            mergeSort(arr , m+1, r);
+
+            // Merge the sorted halves
+            merge(arr, l, m, r);
+        }
+    }
 
 
 
