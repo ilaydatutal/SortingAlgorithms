@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         int arr[] = {0, -3, 4,12, 6, 5, 77, 1};
         System.out.println(Arrays.toString(arr));
-       // System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
-        mergeSort(arr, 0, arr.length - 1);
-       System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
+       // mergeSort(arr, 0, arr.length - 1);
+       //System.out.println(Arrays.toString(arr));
 
     }
 
@@ -52,25 +52,36 @@ public class Main {
 
     public static int partition(int[] arr, int low, int high){
         int temp;
-        int pivot = arr[(low + high) / 2];
+        int pivot = arr[low];
         int i=low, j=high;
 
         while(i <= j){
-            while(arr[i] < pivot){
+            while(i <= high && arr[i] <= pivot){
                 i++;
             }
-            while(arr[j] > pivot){
+            while(j >= low && arr[j] >= pivot){
                 j--;
             }
-            if(i <= j){
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                i++;
-                j--;
+            if (i <= high && j >= low) {
+
+                if (i < j) {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                    i++;
+                    j--;
+                } else {
+                    temp = arr[j];
+                    arr[j] = arr[low];
+                    arr[low] = temp;
+                }
+
             }
+
         }
-        return i;
+
+
+        return j;
 
     }
 
