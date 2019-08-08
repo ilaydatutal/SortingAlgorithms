@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         int arr[] = {0, -3, 4,12, 6, 5, 77, 1};
         System.out.println(Arrays.toString(arr));
-        System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
-       // mergeSort(arr, 0, arr.length - 1);
-       //System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
+        mergeSort(arr, 0, arr.length - 1);
+       System.out.println(Arrays.toString(arr));
 
     }
 
@@ -26,7 +26,7 @@ public class Main {
 
         return arr;
     }
-    /*public static int partition(int[] arr, int low, int high){
+    public static int partition(int[] arr, int low, int high){
          int temp;
         int pivot = arr[high];
         int i = low-1;
@@ -46,45 +46,29 @@ public class Main {
 
 
     }
-    */
+    /*
 
 
-
-    public static int partition(int[] arr, int low, int high){
-        int temp;
-        int pivot = arr[low];
-        int i=low, j=high;
-
-        while(i <= j){
-            while(i <= high && arr[i] <= pivot){
+    public static int partition(int[] arr, int low, int high) {
+        int i = low, j = high;
+        int tmp;
+        int pivot = arr[(low + high) / 2];
+        while (i <= j) {
+            while (arr[i] < pivot)
                 i++;
-            }
-            while(j >= low && arr[j] >= pivot){
+            while (arr[j] > pivot)
+                j--;
+            if (i <= j) {
+                tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+                i++;
                 j--;
             }
-            if (i <= high && j >= low) {
-
-                if (i < j) {
-                    temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                    i++;
-                    j--;
-                } else {
-                    temp = arr[j];
-                    arr[j] = arr[low];
-                    arr[low] = temp;
-                }
-
-            }
-
         }
-
-
-        return j;
-
+        return i;
     }
-
+*/
 
     public static int [] selectionSort(int[] arr, int size){
         int temp, min;
@@ -123,37 +107,35 @@ public class Main {
     public static void merge(int[] arr, int l, int m, int r){
         int size1 = m - l + 1;
         int size2 = r - m;
-        int L[] = new int[size1];
-        int R[] = new int[size2];
+        int left[] = new int[size1];
+        int right[] = new int[size2];
 
-        for (int i=0; i<size1; i++)
-            L[i] = arr[l + i];
-        for (int j=0; j<size2; j++)
-            R[j] = arr[m + 1+ j];
+        left[] = Arrays.copyOfRange(arr, l, m);
+        right[] = Arrays.copyOfRange(arr, m+1, r);
 
         int i = 0, j = 0;
 
-        int k = l;
+        int index = l;
         while (i < size1 && j < size2){
-            if (L[i] <= R[j]){
-                arr[k] = L[i];
+            if (left[i] <= right[j]){
+                arr[index] = left[i];
                 i++;
             }
             else{
-                arr[k] = R[j];
+                arr[index] = right[j];
                 j++;
             }
-            k++;
+            index++;
         }
         while (i < size1){
-            arr[k] = L[i];
+            arr[index] = left[i];
             i++;
-            k++;
+            index++;
         }
         while (j < size2){
-            arr[k] = R[j];
+            arr[index] = right[j];
             j++;
-            k++;
+            index++;
         }
     }
 
