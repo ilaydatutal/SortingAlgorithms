@@ -105,18 +105,14 @@ public class Main {
 
 
     public static void merge(int[] arr, int l, int m, int r){
-        int size1 = m - l + 1;
-        int size2 = r - m;
-        int left[] = new int[size1];
-        int right[] = new int[size2];
 
-        left[] = Arrays.copyOfRange(arr, l, m);
-        right[] = Arrays.copyOfRange(arr, m+1, r);
+        int[] left = Arrays.copyOfRange(arr, l, m+1);
+        int[] right = Arrays.copyOfRange(arr, m+1, r+1);
 
         int i = 0, j = 0;
 
         int index = l;
-        while (i < size1 && j < size2){
+        while (i < left.length && j < right.length){
             if (left[i] <= right[j]){
                 arr[index] = left[i];
                 i++;
@@ -127,12 +123,12 @@ public class Main {
             }
             index++;
         }
-        while (i < size1){
+        while (i < left.length){
             arr[index] = left[i];
             i++;
             index++;
         }
-        while (j < size2){
+        while (j < right.length){
             arr[index] = right[j];
             j++;
             index++;
