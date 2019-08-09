@@ -8,8 +8,13 @@ public class Main {
         int arr[] = {0, -3, 4,12, 6, 5, 77, 1};
         System.out.println(Arrays.toString(arr));
         //System.out.println(Arrays.toString(quickSort(arr, 0, arr.length-1)));
-        mergeSort(arr, 0, arr.length - 1);
-       System.out.println(Arrays.toString(arr));
+
+
+       // mergeSort(arr, 0, arr.length - 1);
+       heapSort(arr);
+
+
+        System.out.println(Arrays.toString(arr));
 
     }
 
@@ -153,6 +158,53 @@ public class Main {
 
 
 
+
+    public static void heapify(int[] arr, int size, int i){
+
+        int indexOfLargest = i;
+        int leftChild = 2*i + 1;
+        int rightChild = 2*i +2;
+        int temp;
+
+        if(leftChild < size && arr[leftChild] > arr[indexOfLargest]){
+            indexOfLargest = leftChild;
+        }
+        if(rightChild < size && arr[rightChild] > arr[indexOfLargest]){
+            indexOfLargest = rightChild;
+        }
+        if(indexOfLargest != i){
+            temp = arr[i];
+            arr[i] = arr[indexOfLargest];
+            arr[indexOfLargest]= temp;
+
+            heapify(arr, arr.length, 0);
+        }
+    }
+
+
+
+    public static void heapSort(int[] arr){
+        int currentSize = arr.length;
+
+        // I need to build a max heap first.
+        for(int i=0; i < arr.length; i++){
+            heapify(arr, arr.length, i);
+        }
+
+        while(currentSize > 0){
+            int temp = arr[0];
+            arr[0] = arr[currentSize-1];
+            arr[currentSize-1] = temp;
+
+            currentSize--;
+
+            for(int i=0; i < currentSize; i++){
+                heapify(arr, currentSize, i);
+            }
+        }
+
+
+    }
 
 
 }
